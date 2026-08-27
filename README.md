@@ -1,0 +1,1 @@
+# intel-uhd620-driver-guard
