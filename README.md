@@ -25,9 +25,20 @@ Intel Corporation - Display   - 24.20.100.6292
 
 Even after DDU cleanup, disabling automatic driver acquisition, and other common Windows Update workarounds, the older OEM candidates continued to reappear.
 
+## Repository structure
+
+```text
+intel-uhd620-driver-guard/
+├── README.md
+└── scripts/
+    └── Protect-IntelUHD620.ps1
+```
+
+The PowerShell guard lives under `scripts/`; the repository root is kept focused on project documentation.
+
 ## What the script does
 
-`Protect-IntelUHD620.ps1`:
+[`scripts/Protect-IntelUHD620.ps1`](scripts/Protect-IntelUHD620.ps1):
 
 - Detects the currently installed Intel UHD Graphics 620 driver.
 - Uses the installed driver version as the minimum allowed version.
@@ -46,18 +57,15 @@ Even after DDU cleanup, disabling automatic driver acquisition, and other common
 2. Run Windows Update and finish the normal OS updates.
 3. Install the latest official Intel graphics driver you want to keep.
 4. Reboot.
-5. Run PowerShell as Administrator.
-6. Execute:
+5. Clone or download this repository.
+6. Run PowerShell as Administrator from the repository root.
+7. Execute:
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File ".\Protect-IntelUHD620.ps1"
+powershell.exe -ExecutionPolicy Bypass -File ".\scripts\Protect-IntelUHD620.ps1"
 ```
 
-If the file is in Downloads:
-
-```powershell
-powershell.exe -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\Protect-IntelUHD620.ps1"
-```
+If you downloaded only the script, execute it from the location where it was saved.
 
 ## Protection model
 
@@ -140,8 +148,10 @@ C:\ProgramData\IntelDriverGuard\IntelDriverGuard.log
 
 ## Run without creating a scheduled task
 
+From the repository root:
+
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File ".\Protect-IntelUHD620.ps1" -NoScheduledTask
+powershell.exe -ExecutionPolicy Bypass -File ".\scripts\Protect-IntelUHD620.ps1" -NoScheduledTask
 ```
 
 ## Run only the guard scan
@@ -149,7 +159,7 @@ powershell.exe -ExecutionPolicy Bypass -File ".\Protect-IntelUHD620.ps1" -NoSche
 This is normally used internally by the scheduled task:
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File ".\Protect-IntelUHD620.ps1" -GuardOnly
+powershell.exe -ExecutionPolicy Bypass -File ".\scripts\Protect-IntelUHD620.ps1" -GuardOnly
 ```
 
 ## Remove persistent protection
